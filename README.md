@@ -37,21 +37,21 @@
 Активуйте віртуальне середовище та запустіть монолітний конвеєр на одній задачі свого набору (замініть `A` на літеру вашої команди):
 
 ```bash
-python src/run.py --team A --pipeline monolith --problem A1 --runs 1
+python src/run.py --team A --pipeline monolith --problem A5 --runs 1
 ```
 
-Якщо з'явився рядок зі `status=...` — усе працює. Результат запуску лежить у `results/A/A1__monolith__run1.json`: там відповідь моделі, її міркування, кількість звернень до моделі та час.
+Якщо з'явився рядок зі `status=...` — усе працює. Результат запуску лежить у `results/A/A5__monolith__run1.json`: там відповідь моделі, її міркування, кількість звернень до моделі та час.
 
 Один запуск може тривати від кількох секунд до кількох хвилин — залежно від задачі та ноутбука. Щоб бачити, що модель пише просто зараз, увімкніть режим живого виводу:
 
 ```bash
 # macOS / Linux
-LLM_VERBOSE=1 python src/run.py --team A --pipeline monolith --problem A1 --runs 1
+LLM_VERBOSE=1 python src/run.py --team A --pipeline monolith --problem A5 --runs 1
 ```
 
 ```powershell
 # Windows PowerShell
-$env:LLM_VERBOSE=1; python src/run.py --team A --pipeline monolith --problem A1 --runs 1
+$env:LLM_VERBOSE=1; python src/run.py --team A --pipeline monolith --problem A5 --runs 1
 ```
 
 Відповідь моделі обмежено 2048 токенами, а очікування — 300 секундами. Якщо модель «зациклилася» чи не відповіла вчасно, запуск завершиться з помилкою `LLMError`, а не зависне; сирий вивід моделі збережеться в полі `raw_model_output`. Обидва обмеження можна змінити змінними середовища `LLM_MAX_TOKENS` та `LLM_TIMEOUT`.
