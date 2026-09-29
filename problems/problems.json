@@ -1,0 +1,242 @@
+{
+ "A1": {
+  "team": "A",
+  "title": "Five offices",
+  "text": "Five developers work in five offices along a corridor, numbered 1 to 5 from left to right. Each developer has a different name, main programming language, editor, favourite drink and operating system. \"To the left of\" means a lower office number; \"next to\" means adjacent office numbers.\n\n1. The person who drinks tea works somewhere to the left of the person who drinks cocoa.\n2. The person who writes Java works somewhere to the left of the person who runs FreeBSD.\n3. The person who drinks water works in an office next to the person who uses Zed.\n4. The person who uses IntelliJ works in an office next to the person who uses Zed.\n5. The person who drinks coffee writes Rust.\n6. Anton runs FreeBSD.\n7. The person who runs ChromeOS works in office 1.\n8. The person who drinks water does not use Emacs.\n9. The person who uses VS Code runs Linux.\n10. The person who uses Zed works in the office immediately to the left of Yevhen.\n11. Vira works in an office next to the person who runs macOS.\n12. Bohdana works in office 5.\n13. The person who writes Kotlin works in office 4.\n14. The person who writes Python does not drink kefir.\n15. The person who writes Rust works in the office immediately to the left of the person who writes Kotlin.\n16. The person who uses Emacs works somewhere to the left of the person who writes Kotlin.\n17. The person who runs macOS works in office 3.\n18. The person who uses Vim works in an office next to the person who drinks tea.\n\nFor each office, determine the name, language, editor, drink and operating system.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\", \"5\" and whose values are objects with the keys \"Name\", \"Language\", \"Editor\", \"Drink\", \"OS\". Use exactly these values — Name: \"Anton\", \"Bohdana\", \"Vira\", \"Dmytro\", \"Yevhen\"; Language: \"Rust\", \"Go\", \"Python\", \"Java\", \"Kotlin\"; Editor: \"Vim\", \"Emacs\", \"VS Code\", \"IntelliJ\", \"Zed\"; Drink: \"tea\", \"coffee\", \"kefir\", \"water\", \"cocoa\"; OS: \"Linux\", \"macOS\", \"Windows\", \"FreeBSD\", \"ChromeOS\"."
+ },
+ "A2": {
+  "team": "A",
+  "title": "Exam timetable",
+  "text": "Four exams — Algorithms, Databases, Networks and Statistics — must be scheduled on Monday, Tuesday or Wednesday. Several exams may share a day, but two exams taken by the same student must be on different days.\n\nEnrolments:\n- Iryna: Algorithms, Databases\n- Oleh: Databases, Networks\n- Marta: Networks, Statistics\n- Denys: Algorithms, Networks\n- Sofiia: Databases, Statistics\n- Yurii: Algorithms, Statistics\n\nAdditionally, Networks cannot be held on Monday.\n\nGive a valid timetable (day for each exam).",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Algorithms\", \"Databases\", \"Networks\", \"Statistics\" to its day (\"Monday\", \"Tuesday\", \"Wednesday\")."
+ },
+ "A3": {
+  "team": "A",
+  "title": "Meetup talks",
+  "text": "Four talks are given at a meetup in time slots 1 to 4 (slot 1 is the earliest). Each talk has a different speaker, topic, format and language.\n\n1. The person who presents in English speaks at some point earlier than Liana.\n2. The person who talks about testing speaks at some point earlier than Marko.\n3. The person who talks about UX speaks in slot 2.\n4. The person who gives a lecture speaks in slot 2.\n5. The person who runs a workshop speaks at some point earlier than Nadiia.\n6. Liana speaks in the slot immediately before the person who gives a live demo.\n7. The person who presents in Ukrainian speaks in slot 4.\n8. The person who talks about databases speaks in slot 4.\n9. The person who presents in Polish and the person who talks about testing speak in adjacent slots.\n10. The person who presents in Polish and Marko speak in adjacent slots.\n\nFor each slot, determine the speaker, topic, format and language.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\" and whose values are objects with the keys \"Speaker\", \"Topic\", \"Format\", \"Language\". Use exactly these values — Speaker: \"Liana\", \"Marko\", \"Nadiia\", \"Orest\"; Topic: \"testing\", \"security\", \"databases\", \"UX\"; Format: \"demo\", \"lecture\", \"workshop\", \"panel\"; Language: \"Ukrainian\", \"English\", \"Polish\", \"German\"."
+ },
+ "A4": {
+  "team": "A",
+  "title": "Knights and knaves (3)",
+  "text": "On an island, knights always tell the truth and knaves always lie. You meet Anya, Borys and Vika.\nAnya says: \"Borys is a knave.\"\nBorys says: \"Anya and Vika are of the same kind.\"\nVika says: \"Borys is a knight.\"\n\nWho is a knight and who is a knave?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Anya\", \"Borys\", \"Vika\" to \"knight\" or \"knave\"."
+ },
+ "A5": {
+  "team": "A",
+  "title": "Race results",
+  "text": "Four runners — Anna, Bohdan, Kira and Dmytro — finished a race. There were no ties.\n1. Kira finished before Anna.\n2. Bohdan finished immediately after Anna.\n3. Dmytro was neither first nor last.\n\nIn what order did they finish (positions 1–4)?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Anna\", \"Bohdan\", \"Kira\", \"Dmytro\" to their finishing position (integer, 1 = first)."
+ },
+ "B1": {
+  "team": "B",
+  "title": "Canteen queue",
+  "text": "Five people stand in a queue at the canteen, positions 1 (front) to 5 (back): Artem, Bohdana, Viktor, Halyna and Dmytro.\n1. Viktor is somewhere in front of Halyna.\n2. Artem stands directly behind Bohdana.\n3. Dmytro is either at the very front or at the very back.\n4. Halyna is not at the back.\n5. Bohdana is not at the front.\n\nWhat is the order of the queue?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Artem\", \"Bohdana\", \"Viktor\", \"Halyna\", \"Dmytro\" to their position in the queue (integer, 1 = front)."
+ },
+ "B2": {
+  "team": "B",
+  "title": "Cryptarithm",
+  "text": "In the addition below, each letter stands for a different digit, and no number starts with 0:\n\n    NODE\n  + EDGE\n  ------\n   GRAPH\n\nAdditional conditions:\n1. The digit 0 does not appear anywhere.\n2. NODE is an even number.\n3. O is greater than N.\n4. A stands for the largest digit that appears in the puzzle.\n\nFind the digit for every letter.",
+  "answer_format": "Put into \"solution\" an object that maps each of \"N\", \"O\", \"D\", \"E\", \"G\", \"R\", \"A\", \"P\", \"H\" to its digit (integer 0–9)."
+ },
+ "B3": {
+  "team": "B",
+  "title": "Meeting week",
+  "text": "Six meetings — Planning, Design review, Budget, Hiring, Security review and Retro — take place from Monday to Wednesday. Each day has a morning slot and an afternoon slot, and each meeting takes one slot; all six slots are used.\n1. Retro is the last meeting of the week.\n2. Planning and Design review are on the same day, with Planning first.\n3. Budget is held in a morning slot.\n4. Security review is held on the day after Budget.\n5. Hiring is not on Monday.\n6. Budget is not on the same day as Planning.\n\nWhich slot does each meeting take?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Planning\", \"Design review\", \"Budget\", \"Hiring\", \"Security review\", \"Retro\" to its slot (\"Mon morning\", \"Mon afternoon\", \"Tue morning\", \"Tue afternoon\", \"Wed morning\", \"Wed afternoon\")."
+ },
+ "B4": {
+  "team": "B",
+  "title": "Siblings' ages",
+  "text": "Four siblings — Ivan, Kateryna, Taras and Sofiia — are all of different ages; each age is a whole number of years between 1 and 30.\n1. Kateryna is twice as old as Taras.\n2. Ivan is 3 years older than Kateryna.\n3. Sofiia is the youngest.\n4. Their ages add up to 43.\n\nHow old is each sibling?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Ivan\", \"Kateryna\", \"Taras\", \"Sofiia\" to their age (integer)."
+ },
+ "B5": {
+  "team": "B",
+  "title": "Drinks",
+  "text": "Olena, Petro and Maria each ordered a different drink: tea, coffee or juice.\n1. Olena did not order tea.\n2. Petro did not order coffee.\n3. Maria ordered neither coffee nor juice.\n\nWho ordered what?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Olena\", \"Petro\", \"Maria\" to their drink (\"tea\", \"coffee\", \"juice\")."
+ },
+ "C1": {
+  "team": "C",
+  "title": "Knights and knaves (3)",
+  "text": "On an island, knights always tell the truth and knaves always lie. You meet Olha, Pylyp and Rostyslav.\nOlha says: \"At least one of us three is a knave.\"\nPylyp says: \"Olha is a knight.\"\nRostyslav says: \"Pylyp is a knave.\"\n\nWho is a knight and who is a knave?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Olha\", \"Pylyp\", \"Rostyslav\" to \"knight\" or \"knave\"."
+ },
+ "C2": {
+  "team": "C",
+  "title": "Release planning (optimization)",
+  "text": "A team plans the next release. The budget is 20 developer-days, and the team can build at most 5 features. Candidate features (cost in developer-days / business value in points):\n\n- Single sign-on (SSO): 5 / 8 — security feature\n- Audit log: 3 / 4 — security feature\n- Two-factor authentication (2FA): 4 / 7 — security feature\n- Dark mode: 2 / 3\n- Offline mode: 6 / 9\n- Real-time sync: 5 / 8\n- CSV export: 2 / 2\n- Public API: 7 / 11\n- Rate limiting: 3 / 3 — security feature\n- Full-text search: 4 / 6\n\nRules:\n1. 2FA can only be built if SSO is also built.\n2. Offline mode and real-time sync cannot both be built.\n3. If the public API is built, rate limiting must also be built.\n4. At least two security features must be built.\n\nWhich features should be built to maximise total business value? Give the set and the total value.",
+  "answer_format": "Put into \"solution\" an object {\"build\": [...]} listing the features to build, using the feature names exactly as written in the problem; put the total business value into \"objective\"."
+ },
+ "C3": {
+  "team": "C",
+  "title": "Round table",
+  "text": "Six people sit around a round table with six equally spaced chairs, numbered 1 to 6 clockwise. Iryna sits in chair 1.\n1. Orest sits next to Iryna.\n2. Kostiantyn sits directly opposite Iryna.\n3. Liudmyla sits next to Kostiantyn.\n4. Mykhailo sits next to Orest.\n5. Nataliia sits in the chair immediately counter-clockwise from Liudmyla.\n6. Orest does not sit in chair 2.\n\nWho sits in which chair?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Iryna\", \"Kostiantyn\", \"Liudmyla\", \"Mykhailo\", \"Nataliia\", \"Orest\" to their chair number (integer 1–6)."
+ },
+ "C4": {
+  "team": "C",
+  "title": "Days off",
+  "text": "Five colleagues — Andrii, Bohdana, Vasyl, Hanna and Denys — each take one day off during the same working week, all on different days.\n1. Vasyl's day off is the day just before the weekend.\n2. Hanna takes her day off in the middle of the working week.\n3. Andrii's day off is the day immediately after Bohdana's.\n4. Denys does not take the first working day of the week off.\n\nOn which day does each colleague rest?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Andrii\", \"Bohdana\", \"Vasyl\", \"Hanna\", \"Denys\" to their day off (\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")."
+ },
+ "C5": {
+  "team": "C",
+  "title": "Parcel delivery",
+  "text": "Three parcels — for Liubov, Mykola and Nazar — were delivered at 9:00, 10:00 and 11:00, one per hour.\n1. Mykola's parcel arrived earlier than Liubov's.\n2. Nazar's parcel did not arrive at 9:00.\n3. Liubov's parcel did not arrive last.\n\nWhen did each parcel arrive?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Liubov\", \"Mykola\", \"Nazar\" to the delivery time of their parcel (\"9:00\", \"10:00\", \"11:00\")."
+ },
+ "D1": {
+  "team": "D",
+  "title": "Knights and knaves (5)",
+  "text": "On an island, knights always tell the truth and knaves always lie. You meet Alla, Bohdan, Vitalii, Hanna and Dariia.\nAlla says: \"Bohdan and Vitalii are both knights.\"\nBohdan says: \"Hanna is a knave.\"\nVitalii says: \"Alla is a knight or Dariia is a knight.\"\nHanna says: \"Exactly two of us five are knights.\"\nDariia says: \"Vitalii and I are of different kinds.\"\n\nWho is a knight and who is a knave?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Alla\", \"Bohdan\", \"Vitalii\", \"Hanna\", \"Dariia\" to \"knight\" or \"knave\"."
+ },
+ "D2": {
+  "team": "D",
+  "title": "Four houses",
+  "text": "Four neighbours live in four houses in a row, numbered 1 to 4 from left to right. Each has a different name, pet and front-door colour.\n\n1. Ivan lives in house 2.\n2. Ivan lives next to Zlata.\n3. The person who has a red door has a turtle.\n4. Yurii lives somewhere to the left of the person who has a yellow door.\n5. Ivan does not have a rabbit.\n6. The person who has a yellow door does not have a cat.\n7. The person who has a cat does not have a blue door.\n8. The person who has a turtle lives in house 4.\n9. Zlata lives next to the person who has a blue door.\n\nFor each house, determine the name, pet and door colour.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\" and whose values are objects with the keys \"Name\", \"Pet\", \"Door\". Use exactly these values — Name: \"Yurii\", \"Zlata\", \"Ivan\", \"Kateryna\"; Pet: \"cat\", \"dog\", \"rabbit\", \"turtle\"; Door: \"yellow\", \"blue\", \"red\", \"green\"."
+ },
+ "D3": {
+  "team": "D",
+  "title": "Parking lot",
+  "text": "Five researchers park in five spots in a row, numbered 1 to 5 from left to right. Each researcher has a different name, car colour, research topic, pet and hobby. \"To the left of\" means a lower spot number; \"next to\" means adjacent spot numbers.\n\n1. The person who works on robotics owns the cat.\n2. The person who drives the blue car parks next to the person who plays chess.\n3. The person who drives the black car parks next to Halyna.\n4. The person who goes running parks next to the person who drives the blue car.\n5. Maksym does not own the parrot.\n6. The person who goes running parks in spot 5.\n7. The person who works on security parks somewhere to the left of the person who works on graph algorithms.\n8. The person who drives the blue car plays the guitar.\n9. The person who drives the green car parks in spot 2.\n10. The person who works on computer vision does not own the parrot.\n11. Maksym does not drive the black car.\n12. The person who owns the hamster parks in spot 5.\n13. Maksym parks next to the person who owns the dog.\n14. The person who drives the black car owns the cat.\n15. Lesia parks somewhere to the left of the person who owns the hamster.\n16. Ihor parks immediately to the left of the person who goes running.\n17. The person who drives the red car parks somewhere to the left of the person who owns the hamster.\n18. The person who owns the dog parks next to the person who paints.\n19. The person who drives the green car works on graph algorithms.\n\nFor each parking spot, determine the name, car colour, topic, pet and hobby.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\", \"5\" and whose values are objects with the keys \"Name\", \"Car\", \"Topic\", \"Pet\", \"Hobby\". Use exactly these values — Name: \"Halyna\", \"Ihor\", \"Lesia\", \"Maksym\", \"Nina\"; Car: \"red\", \"blue\", \"white\", \"black\", \"green\"; Topic: \"robotics\", \"vision\", \"NLP\", \"graphs\", \"security\"; Pet: \"cat\", \"dog\", \"parrot\", \"fish\", \"hamster\"; Hobby: \"chess\", \"climbing\", \"guitar\", \"running\", \"painting\"."
+ },
+ "D4": {
+  "team": "D",
+  "title": "Bookshelf",
+  "text": "Four books stand on a shelf in positions 1 to 4 from left to right: a dictionary, an atlas, a novel and a cookbook.\n1. The atlas stands at one of the two ends of the shelf.\n2. The novel stands immediately to the right of the dictionary.\n3. The cookbook is not next to the atlas.\n4. The atlas is somewhere to the left of the novel.\n\nWhat is the order of the books?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Dictionary\", \"Atlas\", \"Novel\", \"Cookbook\" to its position on the shelf (integer, 1 = leftmost)."
+ },
+ "D5": {
+  "team": "D",
+  "title": "Class photo",
+  "text": "Six students stand in a line for a photo, in positions 1 to 6 from left to right: Yaryna, Zakhar, Ilko, Kyrylo, Lada and Marko.\n1. Kyrylo stands at the right end.\n2. Exactly one person stands between Yaryna and Zakhar.\n3. Exactly two people stand between Ilko and Marko.\n4. Zakhar stands somewhere to the left of Yaryna.\n5. Marko stands somewhere to the left of Ilko.\n6. Lada stands second from the left.\n\nWhat is the order of the students?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Yaryna\", \"Zakhar\", \"Ilko\", \"Kyrylo\", \"Lada\", \"Marko\" to their position (integer, 1 = leftmost)."
+ },
+ "E1": {
+  "team": "E",
+  "title": "Four boxes",
+  "text": "Four boxes A, B, C and D each weigh a different whole number of kilograms, from 1 to 10 kg.\n1. Box A weighs twice as much as box B.\n2. Box C weighs as much as boxes A and B together.\n3. Box D is the heaviest of the four.\n4. Together the four boxes weigh 24 kg.\n\nHow much does each box weigh?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"A\", \"B\", \"C\", \"D\" to its weight in kg (integer)."
+ },
+ "E2": {
+  "team": "E",
+  "title": "Dormitory",
+  "text": "Five students live in five rooms along a dormitory corridor, numbered 1 to 5 from left to right. Each student has a different name, major, home city, musical instrument and sport. \"To the left of\" means a lower room number; \"next to\" means adjacent room numbers.\n\n1. The person who boxes lives somewhere to the left of the person who plays volleyball.\n2. Oksana plays the violin.\n3. The person who plays football lives somewhere to the left of the person who plays tennis.\n4. Pavlo plays the flute.\n5. The person who is from Chernihiv lives in room 2.\n6. Roman lives somewhere to the left of Pavlo.\n7. The person who swims lives in a room next to the person who plays the piano.\n8. The person who plays the violin lives in a room next to the person who plays football.\n9. The person who plays the piano lives in room 3.\n10. The person who studies law lives in the room immediately to the left of the person who plays the bandura.\n11. The person who studies history lives in room 4.\n12. The person who swims lives somewhere to the left of Taras.\n13. The person who studies physics lives in room 5.\n14. The person who is from Poltava lives in room 3.\n15. The person who is from Odesa does not play the drums.\n16. Roman studies medicine.\n17. The person who is from Lviv lives in room 1.\n18. The person who is from Odesa lives in room 5.\n19. Roman lives in a room next to the person who plays volleyball.\n\nFor each room, determine the name, major, home city, instrument and sport.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\", \"5\" and whose values are objects with the keys \"Name\", \"Major\", \"City\", \"Instrument\", \"Sport\". Use exactly these values — Name: \"Oksana\", \"Pavlo\", \"Roman\", \"Svitlana\", \"Taras\"; Major: \"history\", \"physics\", \"law\", \"medicine\", \"economics\"; City: \"Lviv\", \"Odesa\", \"Poltava\", \"Sumy\", \"Chernihiv\"; Instrument: \"violin\", \"drums\", \"piano\", \"flute\", \"bandura\"; Sport: \"football\", \"tennis\", \"swimming\", \"volleyball\", \"boxing\"."
+ },
+ "E3": {
+  "team": "E",
+  "title": "Ticket queue",
+  "text": "Five people — Klara, Leonid, Myroslava, Nazar and Oksen — queue for tickets, positions 1 (front) to 5.\n1. Leonid stands directly in front of Nazar.\n2. Klara stands somewhere behind Myroslava.\n3. Oksen is third in the queue.\n4. Myroslava is not at the front.\n5. Nazar is not at the back.\n\nWhat is the order of the queue?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Klara\", \"Leonid\", \"Myroslava\", \"Nazar\", \"Oksen\" to their position in the queue (integer, 1 = front)."
+ },
+ "E4": {
+  "team": "E",
+  "title": "Duty roster",
+  "text": "Five lab assistants are each on duty on exactly one day of a working week (Monday to Friday), one assistant per day. Each has a different duty task and brings a different snack.\n\n1. The person who brings nuts is on duty on Wednesday.\n2. Arsen is on duty on Thursday.\n3. Vlas and Hlafira are on duty on consecutive days.\n4. Danylo is on duty the day immediately before the person who waters the plants.\n5. Vlas is on duty on Wednesday.\n6. The person who brings apples is on duty earlier in the week than the person who brings cheese.\n7. The person who runs the backups brings pastries.\n8. The person who brings nuts is on duty the day immediately before the person who brings cookies.\n9. The person who sorts the mail is on duty the day immediately before the person who runs the backups.\n10. The person who fixes the printer is on duty the day immediately before the person who waters the plants.\n\nFor each day, determine who is on duty, their task and their snack.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\" and whose values are objects with the keys \"Name\", \"Task\", \"Snack\". Use exactly these values — Name: \"Arsen\", \"Bozhena\", \"Vlas\", \"Hlafira\", \"Danylo\"; Task: \"backups\", \"inventory\", \"printer\", \"mail\", \"plants\"; Snack: \"apples\", \"cookies\", \"nuts\", \"cheese\", \"pastries\"."
+ },
+ "E5": {
+  "team": "E",
+  "title": "Three siblings",
+  "text": "Oleh, Polina and Serhii are 4, 7 and 10 years old, in some order.\n1. Polina is older than Oleh.\n2. Serhii is not the oldest.\n3. Oleh is not the youngest.\n\nHow old is each?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Oleh\", \"Polina\", \"Serhii\" to their age (integer)."
+ },
+ "F1": {
+  "team": "F",
+  "title": "Radio frequencies (minimisation)",
+  "text": "Eight radio stations must each be assigned a broadcasting frequency. Two stations that interfere with each other must get different frequencies. Interfering pairs:\n\n- Kyiv – Zhytomyr\n- Kyiv – Vinnytsia\n- Kyiv – Cherkasy\n- Kyiv – Poltava\n- Kyiv – Chernihiv\n- Zhytomyr – Vinnytsia\n- Vinnytsia – Cherkasy\n- Cherkasy – Poltava\n- Poltava – Chernihiv\n- Chernihiv – Zhytomyr\n- Sumy – Poltava\n- Sumy – Chernihiv\n- Uman – Vinnytsia\n- Uman – Cherkasy\n\nWhat is the smallest number of different frequencies needed? Give the number and one valid assignment (label frequencies 1, 2, 3, …).",
+  "answer_format": "Put into \"solution\" an object that maps each station name to its frequency (integer 1, 2, 3, …); put the number of different frequencies used into \"objective\"."
+ },
+ "F2": {
+  "team": "F",
+  "title": "Publication years",
+  "text": "Five books were published in 2001, 2004, 2009, 2013 and 2020, one book per year: a poetry collection, a biography, a novel, an essay collection and a memoir.\n1. The poetry collection was published exactly 5 years after the biography.\n2. The novel was published before any of the other four books.\n3. The essay collection was published after the memoir.\n\nIn which year was each book published?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Poetry\", \"Biography\", \"Novel\", \"Essays\", \"Memoir\" to its publication year (integer)."
+ },
+ "F3": {
+  "team": "F",
+  "title": "Apartment building",
+  "text": "Four people live on four floors of a small building, floors 1 to 4 (floor 1 is the lowest). Each has a different name, profession, car brand and houseplant.\n\n1. The person who is a teacher grows an orchid.\n2. The person who drives a Toyota and the person who grows an orchid live on adjacent floors.\n3. The person who grows a ficus lives on floor 3.\n4. The person who drives a Toyota lives on the floor directly below the person who drives a Skoda.\n5. Raisa lives on a lower floor than the person who drives a Kia.\n6. The person who is a pilot and the person who is a teacher live on adjacent floors.\n7. The person who is a teacher lives on a lower floor than the person who is an architect.\n8. Petro grows a cactus.\n9. The person who is an architect lives on the floor directly below the person who grows a cactus.\n10. The person who drives a Kia lives on a lower floor than Trokhym.\n\nFor each floor, determine the name, profession, car and plant.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\" and whose values are objects with the keys \"Name\", \"Profession\", \"Car\", \"Plant\". Use exactly these values — Name: \"Petro\", \"Raisa\", \"Sofiia\", \"Trokhym\"; Profession: \"architect\", \"doctor\", \"teacher\", \"pilot\"; Car: \"Skoda\", \"Toyota\", \"Volvo\", \"Kia\"; Plant: \"cactus\", \"ficus\", \"orchid\", \"fern\"."
+ },
+ "F4": {
+  "team": "F",
+  "title": "Umbrellas",
+  "text": "Three umbrellas — red, green and blue — belong to Roksolana, Stepan and Tetiana.\n1. Stepan's umbrella is not red.\n2. Tetiana's umbrella is neither red nor green.\n\nWhose umbrella is which?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Roksolana\", \"Stepan\", \"Tetiana\" to the colour of their umbrella (\"red\", \"green\", \"blue\")."
+ },
+ "F5": {
+  "team": "F",
+  "title": "Cinema seats",
+  "text": "Four friends sit in four seats in a cinema row, numbered 1 to 4 from left to right. Each has a different name, snack and favourite film genre.\n\n1. The person who likes dramas sits next to the person who eats candy.\n2. Marianna sits somewhere to the left of the person who likes comedies.\n3. The person who eats chips likes sci-fi.\n4. Nazar sits immediately to the left of the person who likes comedies.\n5. Lukiian likes horror films.\n6. Lukiian eats popcorn.\n\nFor each seat, determine the name, snack and favourite genre.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\" and whose values are objects with the keys \"Name\", \"Snack\", \"Genre\". Use exactly these values — Name: \"Lukiian\", \"Marianna\", \"Nazar\", \"Olesia\"; Snack: \"popcorn\", \"nachos\", \"candy\", \"chips\"; Genre: \"comedy\", \"horror\", \"drama\", \"sci-fi\"."
+ },
+ "G1": {
+  "team": "G",
+  "title": "Three cities",
+  "text": "Ulyana, Fedir and Khrystyna live in Kyiv, Lviv and Kharkiv, one person per city.\n1. Khrystyna lives neither in Lviv nor in Kyiv.\n2. Fedir does not live in Kyiv.\n\nWho lives where?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Ulyana\", \"Fedir\", \"Khrystyna\" to their city (\"Kyiv\", \"Lviv\", \"Kharkiv\")."
+ },
+ "G2": {
+  "team": "G",
+  "title": "Knights and knaves (6)",
+  "text": "On an island, knights always tell the truth and knaves always lie. You meet six islanders: Ivanna, Kostiantyn, Lesia, Marta, Nestor and Orysia.\nIvanna says: \"Exactly three of us six are knights.\"\nKostiantyn says: \"Ivanna and Lesia are of different kinds.\"\nLesia says: \"If Marta is a knight, then Nestor is a knave.\"\nMarta says: \"Kostiantyn is a knave or Orysia is a knight.\"\nNestor says: \"At most two of us six are knaves.\"\nOrysia says: \"Nestor and Marta are both knaves.\"\n\nWho is a knight and who is a knave?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Ivanna\", \"Kostiantyn\", \"Lesia\", \"Marta\", \"Nestor\", \"Orysia\" to \"knight\" or \"knave\"."
+ },
+ "G3": {
+  "team": "G",
+  "title": "Report deadlines",
+  "text": "Four reports — finance, HR, sales and legal — are each due on the last day of a different month: January, February, March or April 2027.\n1. The finance report's due date has the smallest day-of-month number of the four.\n2. The HR report is due on the 31st.\n3. The legal report is due exactly one month after the HR report.\n\nWhich month is each report due in?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Finance\", \"HR\", \"Sales\", \"Legal\" to the month it is due (\"January\", \"February\", \"March\", \"April\")."
+ },
+ "G4": {
+  "team": "G",
+  "title": "Cousins' ages",
+  "text": "Five cousins — Anhelina, Borys, Valeriia, Hryhorii and Diana — are 5, 8, 11, 14 and 17 years old, all different.\n1. Borys is 6 years older than Diana.\n2. Hryhorii is the youngest.\n3. Valeriia is younger than Diana.\n\nHow old is each cousin?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Anhelina\", \"Borys\", \"Valeriia\", \"Hryhorii\", \"Diana\" to their age (integer)."
+ },
+ "G5": {
+  "team": "G",
+  "title": "Family ages",
+  "text": "A family: grandmother Paraska, mother Raisa, father Semen, son Tymofii and daughter Uliana. All ages are whole numbers.\n1. Tymofii is twice as old as Uliana.\n2. Raisa is 24 years older than Tymofii.\n3. Eight years ago, Raisa was seven times as old as Tymofii was then.\n4. In five years, the ages of Semen and Raisa will add up to 90.\n5. Paraska was 22 years old when Raisa was born.\n\nHow old is each family member?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Paraska\", \"Raisa\", \"Semen\", \"Tymofii\", \"Uliana\" to their age (integer)."
+ },
+ "H1": {
+  "team": "H",
+  "title": "Project week schedule",
+  "text": "Seven meetings — Kickoff, Hiring, Architecture, Demo, Marketing, Legal and Wrap-up — are scheduled from Monday to Thursday. Each day has a morning slot and an afternoon slot (8 slots in total); each meeting takes one slot, so exactly one slot stays empty.\n1. Kickoff is the first meeting of the week.\n2. Wrap-up is the last meeting of the week, and it is held in an afternoon slot.\n3. Architecture and Demo take place on the same day; Architecture is in the morning.\n4. Legal takes place on the day after Architecture.\n5. Marketing takes place on the same day as Legal.\n6. Legal is held in an afternoon slot.\n7. Hiring is held in an afternoon slot, on an earlier day than Demo.\n\nIn which slot does each meeting take place, and which slot stays empty?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Kickoff\", \"Hiring\", \"Architecture\", \"Demo\", \"Marketing\", \"Legal\", \"Wrap-up\" to its slot (\"Mon morning\", \"Mon afternoon\", \"Tue morning\", \"Tue afternoon\", \"Wed morning\", \"Wed afternoon\", \"Thu morning\", \"Thu afternoon\")."
+ },
+ "H2": {
+  "team": "H",
+  "title": "Train carriages",
+  "text": "Four passengers travel in four carriages of a short train, numbered 1 to 4; carriage 1 is at the front. \"In front of\" means a lower carriage number. Each passenger has a different name, destination, luggage item and book genre.\n\n1. The person who reads a history book travels in the carriage directly in front of the person who reads fantasy.\n2. Kharyton travels in carriage 2.\n3. Tsvitana and the person who carries a backpack travel in neighbouring carriages.\n4. Tsvitana travels somewhere in front of the person who is going to Kyiv.\n5. The person who carries a suitcase travels in carriage 3.\n6. The person who is going to Dnipro and Ustyna travel in neighbouring carriages.\n7. The person who is going to Lviv travels somewhere in front of the person who carries a guitar case.\n8. Kharyton reads poetry.\n9. Kharyton and the person who is going to Kyiv travel in neighbouring carriages.\n10. The person who reads a thriller and the person who is going to Lviv travel in neighbouring carriages.\n\nFor each carriage, determine the passenger, destination, luggage and book.",
+  "answer_format": "Put into \"solution\" an object whose keys are \"1\", \"2\", \"3\", \"4\" and whose values are objects with the keys \"Name\", \"Destination\", \"Luggage\", \"Book\". Use exactly these values — Name: \"Ustyna\", \"Filip\", \"Kharyton\", \"Tsvitana\"; Destination: \"Kyiv\", \"Lviv\", \"Dnipro\", \"Uzhhorod\"; Luggage: \"suitcase\", \"backpack\", \"guitar case\", \"duffel bag\"; Book: \"thriller\", \"poetry\", \"history\", \"fantasy\"."
+ },
+ "H3": {
+  "team": "H",
+  "title": "Bug fixing",
+  "text": "Four developers — Bohdan, Vira, Hlib and Daryna — together fixed 10 bugs. Each of them fixed at least one bug, and no two of them fixed the same number of bugs.\n1. Bohdan fixed no more than 2 bugs.\n2. Vira fixed fewer bugs than Hlib.\n3. Hlib fixed at most as many bugs as Daryna.\n4. Daryna fixed not fewer than 4 bugs.\n5. Bohdan fixed more bugs than Vira.\n\nHow many bugs did each developer fix?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Bohdan\", \"Vira\", \"Hlib\", \"Daryna\" to the number of bugs they fixed (integer)."
+ },
+ "H4": {
+  "team": "H",
+  "title": "Knights and knaves (3)",
+  "text": "On an island, knights always tell the truth and knaves always lie. You meet Taisiia, Ustym and Fedora.\nTaisiia says: \"All three of us are knaves.\"\nUstym says: \"Exactly one of us three is a knight.\"\nFedora says: \"Ustym is a knave.\"\n\nWho is a knight and who is a knave?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Taisiia\", \"Ustym\", \"Fedora\" to \"knight\" or \"knave\"."
+ },
+ "H5": {
+  "team": "H",
+  "title": "Laptops",
+  "text": "Three laptops — a ThinkPad, a MacBook and a Dell — belong to Vlad, Yana and Zoriana.\n1. Yana's laptop is not the Dell.\n2. Zoriana owns the MacBook.\n\nWho owns which laptop?",
+  "answer_format": "Put into \"solution\" an object that maps each of \"Vlad\", \"Yana\", \"Zoriana\" to their laptop (\"ThinkPad\", \"MacBook\", \"Dell\")."
+ }
+}
