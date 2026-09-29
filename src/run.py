@@ -69,7 +69,10 @@ def main(argv=None):
     out_dir = ROOT / "results" / args.team.upper()
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Model: {llm.model_name()}   results -> {out_dir.relative_to(ROOT)}/\n")
+    print(f"Model: {llm.model_name()}   results -> {out_dir.relative_to(ROOT)}/")
+    if not llm.VERBOSE:
+        print("Tip: set LLM_VERBOSE=1 to watch the model's output live (see README).")
+    print()
     for p in problems:
         for name in names:
             for k in range(1, args.runs + 1):
