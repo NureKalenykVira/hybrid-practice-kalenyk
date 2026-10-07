@@ -85,7 +85,9 @@ HOW TO WRITE CONDITIONS
   invent conditions that are not in the text.
 - "X is in slot 3": X == 3.       "X is not in slot 3": X != 3.
 - "X is somewhere left of / before / earlier than Y": X < Y.
-- "X is immediately left of / directly before Y": X + 1 == Y.   "directly behind / after": X == Y + 1.
+- "X is immediately left of / immediately before / directly before Y": X + 1 == Y (the one named FIRST
+  plus 1 equals the one named SECOND).   "X is directly behind / immediately after Y": X == Y + 1.
+- "somewhere to the left / earlier" is X < Y, never abs(...). abs(X - Y) == 1 is ONLY for "next to" / "adjacent".
 - "X is next to / adjacent to Y": abs(X - Y) == 1.
 - "the person who has P is in slot 2": P == 2.  "the person who has P is earlier than the one who has Q": P < Q.
 - "the person who has property P has property Q" (same slot): P == Q.
@@ -350,6 +352,14 @@ def required_variables(problem: dict) -> list:
     return [var_name(i) for i in spec["items"]]
 
 
+def numbered_conditions(text: str) -> list:
+    return re.findall(r"^\s*(\d+)\.\s+(.+)$", text, re.M)
+
+
+def _norm_text(t: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(t).lower()).strip()
+
+
 _IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _RESERVED = {"and", "or", "not", "abs", "True", "False"}
 
@@ -425,6 +435,13 @@ def validate_ir(ir: dict, problem: Optional[dict] = None) -> list:
                 errors.append(f'Objective "{expr}" is not a valid expression.')
 
     if problem is not None:
+        written = [_norm_text(c.get("text", "")) for c in ir.get("conditions", []) if isinstance(c, dict)]
+        skipped = [num for num, cond in numbered_conditions(problem.get("text", "")) if "conditions" in ir
+                   if not any(_norm_text(cond)[:40] in w or w[:40] in _norm_text(cond) for w in written if w)]
+        if skipped:
+            errors.append("These numbered conditions of the puzzle are missing from \"conditions\": "
+                          + ", ".join(skipped) + ". Add one item for each of them (copy its text, then write "
+                          "its constraint) and keep all the other items.")
         missing = [v for v in required_variables(problem) if v not in variables]
         if missing:
             errors.append("The answer format needs a variable for each of these names, but they are missing: "
