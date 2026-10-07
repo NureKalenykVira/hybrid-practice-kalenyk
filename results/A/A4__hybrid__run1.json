@@ -1,0 +1,121 @@
+{
+ "problem": "A4",
+ "pipeline": "hybrid",
+ "run": 1,
+ "model": "qwen2.5:3b",
+ "timestamp": "2026-10-07T10:13:12",
+ "answer": {
+  "status": "unique",
+  "solution": {
+   "Anya": "knight",
+   "Borys": "knave",
+   "Vika": "knave"
+  },
+  "objective": null
+ },
+ "trace": {
+  "attempts": [
+   {
+    "ir": {
+     "variables": {
+      "Anya": [
+       0,
+       1
+      ],
+      "Borys": [
+       0,
+       1
+      ],
+      "Vika": [
+       0,
+       1
+      ]
+     },
+     "all_different": [],
+     "conditions": [
+      {
+       "text": "Anya says: Borys is a knave.",
+       "constraint": "Anya == (Borys == knave)"
+      },
+      {
+       "text": "Borys says: Anya and Vika are of the same kind.",
+       "constraint": "Borys == (Anya == Vika)"
+      },
+      {
+       "text": "Vika says: Borys is a knight.",
+       "constraint": "Vika == (Borys == knight)"
+      }
+     ],
+     "constraints": [
+      "Anya == (Borys == 0)",
+      "Borys == (Anya == Vika)",
+      "Vika == (Borys == 1)"
+     ]
+    },
+    "errors": [],
+    "model_ir": {
+     "variables": {
+      "Anya": [
+       "knight",
+       "knave"
+      ],
+      "Borys": [
+       "knight",
+       "knave"
+      ],
+      "Vika": [
+       "knight",
+       "knave"
+      ]
+     },
+     "all_different": [
+      [
+       "Anya",
+       "Borys",
+       "Vika"
+      ]
+     ],
+     "conditions": [
+      {
+       "text": "Anya says: Borys is a knave.",
+       "constraint": "Anya == (Borys == knave)"
+      },
+      {
+       "text": "Borys says: Anya and Vika are of the same kind.",
+       "constraint": "Borys == (Anya == Vika)"
+      },
+      {
+       "text": "Vika says: Borys is a knight.",
+       "constraint": "Vika == (Borys == knight)"
+      }
+     ],
+     "constraints": [
+      "Anya == (Borys == knave)",
+      "Borys == (Anya == Vika)",
+      "Vika == (Borys == knight)"
+     ]
+    },
+    "normalized": [
+     "names fixed: 'Anya == (Borys == knave)' -> 'Anya == (Borys == 0)'",
+     "names fixed: 'Vika == (Borys == knight)' -> 'Vika == (Borys == 1)'",
+     "dropped all_different ['Anya', 'Borys', 'Vika']: 3 two-valued variables can never all differ"
+    ]
+   }
+  ],
+  "solver": {
+   "status": "unique",
+   "n_solutions": 1,
+   "objective": null,
+   "first_solution": {
+    "Anya": 1,
+    "Borys": 0,
+    "Vika": 0
+   },
+   "second_solution": null
+  },
+  "present": "deterministic"
+ },
+ "error": null,
+ "seconds": 55.0,
+ "llm_calls": 1
+}

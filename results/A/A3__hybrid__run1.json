@@ -1,0 +1,220 @@
+{
+ "problem": "A3",
+ "pipeline": "hybrid",
+ "run": 1,
+ "model": "qwen2.5:3b",
+ "timestamp": "2026-10-07T10:11:02",
+ "answer": {
+  "status": "unique",
+  "solution": {
+   "1": {
+    "Speaker": "Orest",
+    "Topic": "testing",
+    "Format": "workshop",
+    "Language": "English"
+   },
+   "2": {
+    "Speaker": "Liana",
+    "Topic": "UX",
+    "Format": "lecture",
+    "Language": "Polish"
+   },
+   "3": {
+    "Speaker": "Marko",
+    "Topic": "security",
+    "Format": "demo",
+    "Language": "German"
+   },
+   "4": {
+    "Speaker": "Nadiia",
+    "Topic": "databases",
+    "Format": "panel",
+    "Language": "Ukrainian"
+   }
+  },
+  "objective": null
+ },
+ "trace": {
+  "attempts": [
+   {
+    "ir": {
+     "variables": {
+      "Liana": [
+       1,
+       4
+      ],
+      "Marko": [
+       1,
+       4
+      ],
+      "Nadiia": [
+       1,
+       4
+      ],
+      "Orest": [
+       1,
+       4
+      ],
+      "testing": [
+       1,
+       4
+      ],
+      "security": [
+       1,
+       4
+      ],
+      "databases": [
+       1,
+       4
+      ],
+      "UX": [
+       1,
+       4
+      ],
+      "demo": [
+       1,
+       4
+      ],
+      "lecture": [
+       1,
+       4
+      ],
+      "workshop": [
+       1,
+       4
+      ],
+      "panel": [
+       1,
+       4
+      ],
+      "Ukrainian": [
+       1,
+       4
+      ],
+      "English": [
+       1,
+       4
+      ],
+      "Polish": [
+       1,
+       4
+      ],
+      "German": [
+       1,
+       4
+      ]
+     },
+     "all_different": [
+      [
+       "Liana",
+       "Marko",
+       "Nadiia",
+       "Orest"
+      ],
+      [
+       "testing",
+       "security",
+       "databases",
+       "UX"
+      ],
+      [
+       "demo",
+       "lecture",
+       "workshop",
+       "panel"
+      ],
+      [
+       "Ukrainian",
+       "English",
+       "Polish",
+       "German"
+      ]
+     ],
+     "conditions": [
+      {
+       "text": "The person who presents in English speaks at some point earlier than Liana.",
+       "constraint": "English < Liana"
+      },
+      {
+       "text": "The person who talks about testing speaks at some point earlier than Marko.",
+       "constraint": "testing < Marko"
+      },
+      {
+       "text": "The person who talks about UX speaks in slot 2.",
+       "constraint": "UX == 2"
+      },
+      {
+       "text": "The person who gives a lecture speaks in slot 2.",
+       "constraint": "lecture == 2"
+      },
+      {
+       "text": "The person who runs a workshop speaks at some point earlier than Nadiia.",
+       "constraint": "workshop < Nadiia"
+      },
+      {
+       "text": "Liana speaks in the slot immediately before the person who gives a live demo.",
+       "constraint": "Liana + 1 == demo"
+      },
+      {
+       "text": "The person who presents in Ukrainian speaks in slot 4.",
+       "constraint": "Ukrainian == 4"
+      },
+      {
+       "text": "The person who talks about databases speaks in slot 4.",
+       "constraint": "databases == 4"
+      },
+      {
+       "text": "The person who presents in Polish and the person who talks about testing speak in adjacent slots.",
+       "constraint": "abs(testing - Polish) == 1"
+      },
+      {
+       "text": "The person who presents in Polish and Marko speak in adjacent slots.",
+       "constraint": "abs(Polish - Marko) == 1"
+      }
+     ],
+     "constraints": [
+      "English < Liana",
+      "testing < Marko",
+      "UX == 2",
+      "lecture == 2",
+      "workshop < Nadiia",
+      "Liana + 1 == demo",
+      "Ukrainian == 4",
+      "databases == 4",
+      "abs(testing - Polish) == 1",
+      "abs(Polish - Marko) == 1"
+     ]
+    },
+    "errors": []
+   }
+  ],
+  "solver": {
+   "status": "unique",
+   "n_solutions": 1,
+   "objective": null,
+   "first_solution": {
+    "Liana": 2,
+    "Marko": 3,
+    "Nadiia": 4,
+    "Orest": 1,
+    "testing": 1,
+    "security": 3,
+    "databases": 4,
+    "UX": 2,
+    "demo": 3,
+    "lecture": 2,
+    "workshop": 1,
+    "panel": 4,
+    "Ukrainian": 4,
+    "English": 1,
+    "Polish": 2,
+    "German": 3
+   },
+   "second_solution": null
+  },
+  "present": "deterministic"
+ },
+ "error": null,
+ "seconds": 70.0,
+ "llm_calls": 1
+}

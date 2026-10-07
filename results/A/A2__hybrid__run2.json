@@ -1,0 +1,97 @@
+{
+ "problem": "A2",
+ "pipeline": "hybrid",
+ "run": 2,
+ "model": "qwen2.5:3b",
+ "timestamp": "2026-10-07T10:05:01",
+ "answer": {
+  "status": "none",
+  "solution": {},
+  "objective": null
+ },
+ "trace": {
+  "attempts": [
+   {
+    "ir": {
+     "variables": {
+      "Algorithms": [
+       1,
+       3
+      ],
+      "Databases": [
+       1,
+       3
+      ],
+      "Networks": [
+       1,
+       3
+      ],
+      "Statistics": [
+       1,
+       3
+      ]
+     },
+     "all_different": [
+      [
+       "Algorithms",
+       "Databases",
+       "Networks",
+       "Statistics"
+      ]
+     ],
+     "conditions": [
+      {
+       "text": "Iryna: Algorithms, Databases",
+       "constraint": "Algorithms != Databases"
+      },
+      {
+       "text": "Oleh: Databases, Networks",
+       "constraint": "Databases != Networks"
+      },
+      {
+       "text": "Marta: Networks, Statistics",
+       "constraint": "Networks != Statistics"
+      },
+      {
+       "text": "Denys: Algorithms, Networks",
+       "constraint": "Algorithms != Networks"
+      },
+      {
+       "text": "Sofiia: Databases, Statistics",
+       "constraint": "Databases != Statistics"
+      },
+      {
+       "text": "Yurii: Algorithms, Statistics",
+       "constraint": "Algorithms != Statistics"
+      },
+      {
+       "text": "Networks cannot be held on Monday.",
+       "constraint": "Networks != 1"
+      }
+     ],
+     "constraints": [
+      "Algorithms != Databases",
+      "Databases != Networks",
+      "Networks != Statistics",
+      "Algorithms != Networks",
+      "Databases != Statistics",
+      "Algorithms != Statistics",
+      "Networks != 1"
+     ]
+    },
+    "errors": []
+   }
+  ],
+  "solver": {
+   "status": "none",
+   "n_solutions": 0,
+   "objective": null,
+   "first_solution": null,
+   "second_solution": null
+  },
+  "present": "none"
+ },
+ "error": null,
+ "seconds": 47.5,
+ "llm_calls": 1
+}

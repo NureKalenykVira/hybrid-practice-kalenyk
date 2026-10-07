@@ -1,0 +1,87 @@
+{
+ "problem": "A5",
+ "pipeline": "hybrid",
+ "run": 2,
+ "model": "qwen2.5:3b",
+ "timestamp": "2026-10-07T10:16:27",
+ "answer": {
+  "status": "unique",
+  "solution": {
+   "Anna": 3,
+   "Bohdan": 4,
+   "Kira": 1,
+   "Dmytro": 2
+  },
+  "objective": null
+ },
+ "trace": {
+  "attempts": [
+   {
+    "ir": {
+     "variables": {
+      "Anna": [
+       1,
+       4
+      ],
+      "Bohdan": [
+       1,
+       4
+      ],
+      "Kira": [
+       1,
+       4
+      ],
+      "Dmytro": [
+       1,
+       4
+      ]
+     },
+     "all_different": [
+      [
+       "Anna",
+       "Bohdan",
+       "Kira",
+       "Dmytro"
+      ]
+     ],
+     "conditions": [
+      {
+       "text": "Kira finished before Anna.",
+       "constraint": "Kira < Anna"
+      },
+      {
+       "text": "Bohdan finished immediately after Anna.",
+       "constraint": "Bohdan == Anna + 1"
+      },
+      {
+       "text": "Dmytro was neither first nor last.",
+       "constraint": "Dmytro != 1 and Dmytro != 4"
+      }
+     ],
+     "constraints": [
+      "Kira < Anna",
+      "Bohdan == Anna + 1",
+      "Dmytro != 1 and Dmytro != 4"
+     ]
+    },
+    "errors": []
+   }
+  ],
+  "solver": {
+   "status": "unique",
+   "n_solutions": 1,
+   "objective": null,
+   "first_solution": {
+    "Anna": 3,
+    "Bohdan": 4,
+    "Kira": 1,
+    "Dmytro": 2
+   },
+   "second_solution": null
+  },
+  "present": "deterministic"
+ },
+ "error": null,
+ "seconds": 19.3,
+ "llm_calls": 1
+}
