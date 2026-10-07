@@ -45,6 +45,8 @@ def run_one(problem: dict, name: str, k: int, out_dir: Path) -> dict:
         record["traceback"] = traceback.format_exc()
         if isinstance(e, llm.LLMError):
             record["raw_model_output"] = e.raw
+        if getattr(e, "trace", None) is not None:
+            record["trace"] = e.trace
     record["seconds"] = round(time.time() - t0, 1)
     record["llm_calls"] = llm.STATS["calls"]
     path = out_dir / f"{problem['id']}__{name}__run{k}.json"
