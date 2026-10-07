@@ -18,6 +18,7 @@ import keyword
 import re
 from typing import Any, Optional
 
+import z3
 from pydantic import BaseModel, Field
 
 import ir_solver
@@ -40,7 +41,7 @@ class Condition(BaseModel):
 
 class IRModel(BaseModel):
     """JSON schema the formalizer must follow. Keep it in sync with docs/ir.md."""
-    variables: dict[str, Any]
+    variables: dict[str, Any] = Field(default_factory=dict)
     all_different: list[list[str]] = Field(default_factory=list)
     conditions: list[Condition] = Field(default_factory=list)
     objective: Optional[dict[str, str]] = None
@@ -72,21 +73,10 @@ formally. A constraint solver will find the answer.
 
 {ir_spec}
 
-HOW TO CHOOSE VARIABLES
-- Use exactly the names listed in "Answer format" below. Replace every space or other symbol by "_",
-  e.g. "VS Code" -> VS_Code, "Wrap-up" -> Wrap_up.
-- If the answer is a table (keys "1", "2", ... or a list of slots, each with several attributes), create
-  ONE variable for EVERY listed value of EVERY attribute. Its value is the number of the slot where it is
-  (1 = first key). Put the values of each attribute into one all_different group.
-- If the answer maps each item to a position, number, age, etc. (integer), create one variable per item
-  whose value is that integer.
-- If the answer maps each item to one of several listed options, create one variable per item; its value
-  is the number of the option in the listed order (1 = first option). Example: options ("Mon", "Tue", "Wed")
-  -> 1 means Mon, 2 means Tue, 3 means Wed.
-- If the options are exactly two, like "knight" or "knave" (true or false), use domain [0, 1]
-  with 1 = the first option ("knight", truthful) and 0 = the second option ("knave", liar).
-- In constraints you may write an option name instead of its number (spaces -> "_"); it is replaced
-  automatically. Examples: Networks != Monday, Borys == knave, Vika == knight.
+VARIABLES
+{variables_hint}
+- Names are identifiers: replace every space or other symbol by "_", e.g. "VS Code" -> VS_Code.
+- In constraints you may write an option name instead of its number; it is replaced automatically.
 
 HOW TO WRITE CONDITIONS
 - Go through the puzzle sentence by sentence. For EVERY condition add one item to "conditions":
@@ -97,9 +87,16 @@ HOW TO WRITE CONDITIONS
 - "X is somewhere left of / before / earlier than Y": X < Y.
 - "X is immediately left of / directly before Y": X + 1 == Y.   "directly behind / after": X == Y + 1.
 - "X is next to / adjacent to Y": abs(X - Y) == 1.
+- "the person who has P is in slot 2": P == 2.  "the person who has P is earlier than the one who has Q": P < Q.
 - "the person who has property P has property Q" (same slot): P == Q.
 - "X is either first or last": X == 1 or X == 5 (use the real last number).
-- Two items that cannot share a value: X != Y.  All items of one kind are different: use all_different.
+- Two items that cannot share a value: X != Y.
+- A list like "Name: A, B" only says that A and B are linked. If the text says that linked items must get
+  different values, write A != B for EVERY such line. Never create a variable for the name of the line.
+- Use all_different ONLY if the text says that all those items take different values ("one per platform",
+  "all different"). If the text says items may share a value ("may share a day"), do NOT use all_different.
+- Do not create variables for people or things that are not named in the answer format, unless a condition
+  really needs a number that is not part of the answer (an unknown amount, a count).
 - Truth-tellers and liars: write exactly ONE constraint per statement: a statement S said by X becomes
   X == (S). Copy the words of the statement: "Y is a knave" is (Y == knave), "Y is a knight" is
   (Y == knight), "Y and Z are of the same kind" is (Y == Z), "Y and Z are of different kinds" is (Y != Z),
@@ -122,17 +119,52 @@ IR:
   {{"text": "The intercity does not leave from platform 3.", "constraint": "Intercity != 3"}}]}}
 
 EXAMPLE 2
+Puzzle: Three tasks - Paint, Wire, Tile - are done in week 1 or week 2. Several tasks may share a week, but
+two tasks of the same worker must be in different weeks. Workers:
+- Ostap: Paint, Wire
+- Lida: Wire, Tile
+Tile cannot be in week 1.
+Answer format: maps each of "Paint", "Wire", "Tile" to its week ("week 1", "week 2").
+IR:
+(variables Paint, Wire, Tile are declared by the program, 1 = week 1, 2 = week 2)
+{{"variables": {{}},
+ "all_different": [],
+ "conditions": [
+  {{"text": "Ostap: Paint, Wire", "constraint": "Paint != Wire"}},
+  {{"text": "Lida: Wire, Tile", "constraint": "Wire != Tile"}},
+  {{"text": "Tile cannot be in week 1.", "constraint": "Tile != 1"}}]}}
+(tasks may share a week -> no all_different; workers are not variables)
+
+EXAMPLE 3
 Puzzle: Pavlo, Rita and Sava live on an island of truth-tellers and liars. Pavlo says: "Rita is a liar."
 Rita says: "We are all three truth-tellers." Sava says: "Pavlo is a truth-teller."
 Answer format: maps each of "Pavlo", "Rita", "Sava" to "truth-teller" or "liar".
 IR:
-{{"variables": {{"Pavlo": [0, 1], "Rita": [0, 1], "Sava": [0, 1]}},
+(variables Pavlo, Rita, Sava are declared by the program, 1 = truth-teller, 0 = liar)
+{{"variables": {{}},
  "all_different": [],
  "conditions": [
   {{"text": "Pavlo says: Rita is a liar.", "constraint": "Pavlo == (Rita == liar)"}},
   {{"text": "Rita says: We are all three truth-tellers.", "constraint": "Rita == (Pavlo + Rita + Sava == 3)"}},
   {{"text": "Sava says: Pavlo is a truth-teller.", "constraint": "Sava == (Pavlo == truth_teller)"}}]}}
 (three statements -> three constraints; no all_different: two people may both be truth-tellers)
+
+EXAMPLE 4
+Puzzle: Ola, Ivo and Yan live in houses 1, 2 and 3; each has a different pet: a cat, a dog or a fish.
+1. Ola lives somewhere to the left of the dog owner.
+2. Ivo lives in the house immediately before the cat owner.
+3. Ola and the fish owner live in adjacent houses.
+Answer format: keys "1", "2", "3", values with the keys "Name", "Pet" - Name: "Ola", "Ivo", "Yan";
+Pet: "cat", "dog", "fish".
+IR:
+(variables Ola, Ivo, Yan, cat, dog, fish are declared by the program; each value is a house number)
+{{"variables": {{}},
+ "all_different": [],
+ "conditions": [
+  {{"text": "Ola lives somewhere to the left of the dog owner.", "constraint": "Ola < dog"}},
+  {{"text": "Ivo lives in the house immediately before the cat owner.", "constraint": "Ivo + 1 == cat"}},
+  {{"text": "Ola and the fish owner live in adjacent houses.", "constraint": "abs(Ola - fish) == 1"}}]}}
+("immediately before" -> the first one + 1 == the second one; "adjacent" -> abs of the difference == 1)
 
 NOW YOUR PUZZLE
 Puzzle:
@@ -150,7 +182,7 @@ def formalize(problem: dict, feedback: Optional[str] = None, previous: Optional[
         prev = f"\nYour previous encoding:\n{json.dumps(shown, ensure_ascii=False)}\n" if shown else ""
         fb = (f"{prev}\nIt was rejected because:\n{feedback}\n"
               f"Write the whole IR again: keep what was correct and change only what these errors point to.\n")
-    prompt = FORMALIZER_PROMPT.format(ir_spec=IR_SPEC, text=problem["text"],
+    prompt = FORMALIZER_PROMPT.format(ir_spec=IR_SPEC, text=problem["text"], variables_hint=variables_hint(problem),
                                       answer_format=problem["answer_format"], feedback=fb)
     parsed, raw = llm.ask_json(prompt, IRModel, system=SYSTEM)
     ir = parsed.model_dump(exclude_none=True)
@@ -168,21 +200,99 @@ def option_constants(problem: dict) -> dict:
     return {var_name(o): i + 1 for i, o in enumerate(opts)}
 
 
+def declared_variables(problem: dict) -> Optional[tuple]:
+    spec = parse_answer_format(problem.get("answer_format", ""))
+    if spec is None:
+        return None
+    if spec["kind"] == "table":
+        n = len(spec["keys"])
+        groups = [[var_name(v) for v in vals] for vals in spec["attributes"].values()]
+        return {v: [1, n] for g in groups for v in g}, groups
+    if spec["options"]:
+        k = len(spec["options"])
+        return {var_name(i): ([0, 1] if k == 2 else [1, k]) for i in spec["items"]}, []
+    return None
+
+
+def variables_hint(problem: dict) -> str:
+    spec = parse_answer_format(problem.get("answer_format", ""))
+    if spec is None:
+        return ("- Create the integer variables the answer needs, with a domain [lo, hi] for each, and helper\n"
+                "  variables only if a condition needs them.")
+    if spec["kind"] == "table":
+        keys = spec["keys"]
+        lines = [f"- The program has ALREADY declared these variables; leave \"variables\" and \"all_different\" "
+                 f"empty and only write \"conditions\".",
+                 f"- One variable for every value; its value is the slot number: "
+                 + ", ".join(f"{i + 1} = \"{k}\"" for i, k in enumerate(keys)) + "."]
+        for attr, vals in spec["attributes"].items():
+            lines.append(f"  {attr}: " + ", ".join(var_name(v) for v in vals) + "  (all different)")
+        return "\n".join(lines)
+    items = ", ".join(var_name(i) for i in spec["items"])
+    if spec["options"]:
+        opts = spec["options"]
+        meaning = (f"1 = {opts[0]}, 0 = {opts[1]}" if len(opts) == 2
+                   else ", ".join(f"{i + 1} = {o}" for i, o in enumerate(opts)))
+        return (f"- The program has ALREADY declared these variables; leave \"variables\" empty: {items}.\n"
+                f"- Value of each variable: {meaning}. You may write the option names in constraints.")
+    return (f"- Declare in \"variables\" one integer variable for each of: {items}, with the domain [lo, hi]\n"
+            f"  of possible values (positions, ages, ...). Add helper variables only if a condition needs them.")
+
+
+_WORD = re.compile(r"\b[A-Za-z_][A-Za-z0-9_]*\b")
+_KEEP = {"and", "or", "not", "abs"}
+
+
 def normalize_ir(ir: dict, problem: dict) -> tuple:
     notes = []
     variables = ir.get("variables")
     if not isinstance(variables, dict):
         return ir, notes
-    consts = {k: v for k, v in option_constants(problem).items() if k not in variables}
-    if consts:
-        pat = re.compile(r"\b(" + "|".join(map(re.escape, sorted(consts, key=len, reverse=True))) + r")\b")
-        new = []
-        for c in ir.get("constraints", []):
-            c2 = pat.sub(lambda m: str(consts[m.group(1)]), c) if isinstance(c, str) else c
-            if c2 != c:
-                notes.append(f"option names replaced by numbers: {c!r} -> {c2!r}")
-            new.append(c2)
-        ir = {**ir, "constraints": new}
+    declared = declared_variables(problem)
+    if declared is not None:
+        decl_vars, decl_groups = declared
+        lower = {k.lower() for k in decl_vars}
+        merged = dict(decl_vars)
+        for name, dom in variables.items():
+            if name in decl_vars or name.lower() in lower:
+                continue
+            if not _IDENT.match(name):
+                notes.append(f"dropped variable {name!r}: not a valid name and not needed by the answer")
+                continue
+            merged[name] = dom
+        variables = merged
+        groups = [list(g) for g in decl_groups]
+        for grp in ir.get("all_different", []):
+            if sorted(grp) not in [sorted(g) for g in groups]:
+                groups.append(grp)
+        ir = {**ir, "variables": variables, "all_different": groups}
+    fixed = dict(variables)
+    for name, dom in variables.items():
+        if isinstance(dom, list) and len(dom) > 2 and all(_is_int(v) for v in dom):
+            fixed[name] = {"values": sorted(set(dom))}
+            notes.append(f"domain of {name} written as a list of values: {json.dumps(dom)} -> {{'values': ...}}")
+    if fixed != variables:
+        ir = {**ir, "variables": fixed}
+        variables = fixed
+    by_lower = {k.lower(): k for k in variables}
+    consts = {k.lower(): v for k, v in option_constants(problem).items() if k.lower() not in by_lower}
+
+    def fix(match):
+        w = match.group(0)
+        if w in variables or w in _KEEP:
+            return w
+        if w.lower() in by_lower:
+            return by_lower[w.lower()]
+        if w.lower() in consts:
+            return str(consts[w.lower()])
+        return w
+    new = []
+    for c in ir.get("constraints", []):
+        c2 = _WORD.sub(fix, c) if isinstance(c, str) else c
+        if c2 != c:
+            notes.append(f"names fixed: {c!r} -> {c2!r}")
+        new.append(c2)
+    ir = {**ir, "constraints": new}
     groups = []
     for grp in ir.get("all_different", []):
         doms = [variables.get(g) for g in grp]
@@ -285,21 +395,6 @@ def validate_ir(ir: dict, problem: Optional[dict] = None) -> list:
             errors.append(f"all_different uses undeclared variables: {', '.join(unknown)}.")
         if len(grp) < 2:
             errors.append(f"all_different group {grp} must contain at least two variables.")
-        elif not unknown:
-            possible = set()
-            for g in grp:
-                d = variables[g]
-                if isinstance(d, dict) and isinstance(d.get("values"), list):
-                    possible.update(d["values"])
-                elif isinstance(d, list) and len(d) == 2 and all(_is_int(v) for v in d) and d[1] - d[0] < 1000:
-                    possible.update(range(d[0], d[1] + 1))
-                else:
-                    possible = None
-                    break
-            if possible is not None and len(possible) < len(grp):
-                errors.append(f"all_different {grp} is impossible: {len(grp)} variables but only {len(possible)} "
-                              f"possible values. Use all_different only when the text says the items must all be "
-                              f"different; never for true/false (0/1) variables.")
 
     for c in ir.get("constraints", []):
         if not isinstance(c, str) or not c.strip():
@@ -340,16 +435,38 @@ def validate_ir(ir: dict, problem: Optional[dict] = None) -> list:
             ir_solver.build(ir)
         except (ValueError, TypeError, KeyError, SyntaxError) as e:
             errors.append(f"The solver rejected the encoding: {e}.")
+    if not errors:
+        for c in ir.get("constraints", []):
+            _, cons, _ = ir_solver.build({"variables": variables, "constraints": [c]})
+            s = z3.Solver()
+            s.add(*cons)
+            if s.check() == z3.unsat:
+                errors.append(f'Constraint "{c}" can never be true with the declared domains, even on its own '
+                              f'(for example, two positions 1..N can never add up to 1). Re-read that condition '
+                              f'and use the patterns: before -> <, immediately before -> X + 1 == Y, '
+                              f'adjacent -> abs(X - Y) == 1.')
     return errors
 
 
-def run_solver(ir: dict) -> dict:
+def run_solver(ir: dict, problem: Optional[dict] = None) -> dict:
     """Run Z3 on the IR. Returns {"status": ..., "solutions": [...], "objective": ...}.
 
     TODO(team): with limit=1 the solver stops after the first solution, so it reports "unique" even when
     several solutions exist. Think about what limit you need to tell "unique" from "multiple".
     """
-    return ir_solver.solve(ir, limit=2)
+    keys = [v for v in required_variables(problem) if v in ir["variables"]] if problem else []
+    if ir.get("objective") or not keys or len(keys) == len(ir["variables"]):
+        return ir_solver.solve(ir, limit=2)
+    zv, cons, _ = ir_solver.build(ir)
+    s = z3.Solver()
+    s.add(*cons)
+    sols = []
+    while len(sols) < 2 and s.check() == z3.sat:
+        m = s.model()
+        sols.append({k: m.eval(v, model_completion=True).as_long() for k, v in zv.items()})
+        s.add(z3.Or(*[zv[k] != sols[-1][k] for k in keys]))
+    status = "none" if not sols else ("unique" if len(sols) == 1 else "multiple")
+    return {"status": status, "solutions": sols}
 
 
 def present_deterministic(problem: dict, result: dict) -> Optional[dict]:
@@ -456,7 +573,7 @@ def solve(problem: dict) -> dict:
     ir = att["ir"]
 
     try:
-        result = run_solver(ir)
+        result = run_solver(ir, problem)
     except (ValueError, TypeError) as e:         # the solver rejected the IR
         raise HybridError(f"solver rejected the IR: {e}", trace) from e
     trace["solver"] = {"status": result["status"], "n_solutions": len(result["solutions"]),
